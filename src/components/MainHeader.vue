@@ -28,12 +28,12 @@
 
 .header-title {
   font-weight: bold;
-  font-size: 1.25rem;
+  font-size: 1rem;
 }
 
 .nav-list {
   display: flex;
-  gap: 0.75rem;
+  gap: 2rem;
   cursor: pointer;
 }
 </style>

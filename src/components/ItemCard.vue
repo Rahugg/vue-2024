@@ -29,10 +29,11 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%;
+  width: 92%;
   padding: 1rem;
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
+  overflow: hidden;
 }
 
 .title {
