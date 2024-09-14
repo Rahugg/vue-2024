@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import './item-card-styles.css';
+
 </script>
 
 <style scoped>

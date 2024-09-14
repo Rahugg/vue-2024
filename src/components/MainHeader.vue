@@ -16,7 +16,6 @@
 </template>
 
 <script setup lang="ts">
-import './styles.css';
 </script>
 
 <style scoped>

@@ -2,21 +2,20 @@
   <div class="full-screen-center">
     <div class="grid-layout">
       <div class="flex-column">
-        <lab-card />
-        <lab-card />
+        <item-card />
+        <item-card />
       </div>
-      <lab-card class="full-height"/>
+      <item-card class="full-height"/>
       <div class="flex-column">
-        <lab-card />
-        <lab-card />
+        <item-card />
+        <item-card />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import LabCard from '@/components/LabCard.vue'
-import './item-list-styles.css';
+import ItemCard from '@/components/ItemCard.vue'
 </script>
 
 <style scoped>
