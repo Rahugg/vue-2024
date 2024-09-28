@@ -6,9 +6,11 @@
                 <h4>{{ comment.PersonName }}</h4>
                 <p>{{ comment.PubDate }}</p>
                 <div class="rating">
-                    <img v-for="star in 5" :key="star"
-                        :src="star <= Math.floor(comment.Rating) ? require('../assets/star.png') : require('../assets/empty-star.png')"
-                        alt="star" class="star" />
+                    <img v-for="star in fullStars" :key="'full-' + star" src="../assets/star.png" alt="star" class="star" />
+                    <div v-if="hasHalfStar" class="half-star-wrapper">
+                        <img src="../assets/star.png" alt="half-star" class="half-star" />
+                    </div>
+                    <img v-for="star in emptyStars" :key="'empty-' + star" src="../assets/empty-star.png" alt="empty-star" class="star" />
                 </div>
             </div>
         </div>
@@ -18,7 +20,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+import { defineProps, defineEmits, computed } from 'vue';
 
 const props = defineProps({
     comment: {
@@ -32,6 +34,10 @@ const emits = defineEmits(['likeClicked']);
 const likeComment = () => {
     emits('likeClicked', props.comment);
 };
+
+const fullStars = computed(() => Math.floor(props.comment.Rating));
+const hasHalfStar = computed(() => props.comment.Rating % 1 >= 0.5);
+const emptyStars = computed(() => 5 - fullStars.value - (hasHalfStar.value ? 1 : 0));
 </script>
 
 <style scoped>
@@ -79,6 +85,27 @@ p {
 .star {
     width: 20px;
     height: 20px;
+}
+
+.half-star-wrapper {
+    position: relative;
+    width: 20px; 
+    height: 20px; 
+    overflow: hidden;
+    background-image: url('../assets/empty-star.png'); 
+    background-size: contain; 
+    background-position: center;
+    background-repeat: no-repeat; 
+}
+
+.half-star {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    clip-path: inset(0 50% 0 0); 
+    z-index: 1; 
 }
 
 .comment-text {

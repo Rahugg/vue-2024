@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    
     <AssignmentHeader @updateTopic="updateTopic" />
     <AssignmentMain />
   </div>
@@ -20,4 +21,12 @@ provide('selectedTopic', selectedTopic);
 provide('updateTopic', updateTopic);
 </script>
 
-<style></style>
+<style scoped>
+#app {
+  background-image: url('assets/main-bg.png'); 
+  background-size: cover;
+  background-position: center; 
+  background-repeat: no-repeat; 
+  min-height: 100vh; 
+}
+</style>

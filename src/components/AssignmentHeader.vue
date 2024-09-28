@@ -45,6 +45,7 @@ const toggleMenu = () => {
 const updateTopic = inject('updateTopic');
 
 const selectTopic = (topic) => {
+    isMenuOpen.value = false;
     updateTopic(topic);
 };
 </script>

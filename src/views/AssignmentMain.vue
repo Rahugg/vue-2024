@@ -2,7 +2,7 @@
   <div class="main">
     <div class="main-container">
       <div class="top-section">
-        <div class="date-display">13.09.2024</div>
+        <div class="date-display">28.09.2024</div>
         <div class="selected-topic">{{ selectedTopic }}</div>
       </div>
 

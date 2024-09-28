@@ -46,6 +46,7 @@ export const peopleData = [
     Commentary: "Really enjoyed it.",
     Topic: "ADVENTURE BLOG",
   },
+  
   // NATURE BLOG
   {
     id: 6,
@@ -229,5 +230,51 @@ export const peopleData = [
     Rating: 4.7,
     Commentary: "Best experience ever!",
     Topic: "SPORT BLOG",
+  },
+
+  {
+    id: 26,
+    PersonName: "Mark Twen",
+    Avatar: "avatar-male.png",
+    PubDate: "Today, 12:00",
+    Rating: 3.9,
+    Commentary: "This is awesome adventure that I had! Thanks!",
+    Topic: "ADVENTURE BLOG",
+  },
+  {
+    id: 27,
+    PersonName: "Katherine Johns",
+    Avatar: "avatar-female.png",
+    PubDate: "5 days ago, 12:15",
+    Rating: 4.0,
+    Commentary: "The place is very big. I lost the exit.",
+    Topic: "ADVENTURE BLOG",
+  },
+  {
+    id: 28,
+    PersonName: "Charlie Davis",
+    Avatar: "avatar-male.png",
+    PubDate: "3 weeks ago, 09:00",
+    Rating: 4.7,
+    Commentary: "Amazing experience!",
+    Topic: "ADVENTURE BLOG",
+  },
+  {
+    id: 29,
+    PersonName: "Jack King",
+    Avatar: "avatar-male2.png",
+    PubDate: "7 months ago, 14:45",
+    Rating: 4.3,
+    Commentary: "Really good!",
+    Topic: "ADVENTURE BLOG",
+  },
+  {
+    id: 30,
+    PersonName: "Paul Quinn",
+    Avatar: "avatar-male.png",
+    PubDate: "1 year ago, 12:00",
+    Rating: 4.6,
+    Commentary: "Really enjoyed it.",
+    Topic: "ADVENTURE BLOG",
   },
 ];
