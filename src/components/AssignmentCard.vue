@@ -21,16 +21,16 @@
 import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
-  comment: {
-    type: Object,
-    required: true,
-  },
+    comment: {
+        type: Object,
+        required: true,
+    },
 });
 
 const emits = defineEmits(['likeClicked']);
 
 const likeComment = () => {
-  emits('likeClicked', props.comment);
+    emits('likeClicked', props.comment);
 };
 </script>
 
