@@ -77,7 +77,7 @@ const selectTopic = (topic) => {
 .sidebar {
   position: fixed;
   top: 0;
-  left: -300px;
+  left: -500px;
   width: 300px;
   height: 100%;
   background: #e6f9ff;
