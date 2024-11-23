@@ -1,3 +1,5 @@
+// assets/people.js
+
 export default [
   // ADVENTURE BLOG
   {
@@ -11,18 +13,21 @@ export default [
     email: "mark.twen@example.com",
     password: "mark1234",
     age: 35,
+    isAdmin: true,
+    createdAt: "2023-09-15T12:00:00Z", // Added createdAt
     Posts: [
       {
         Title: "A Great Adventure",
-        Date: "Today, 11:00",
+        Date: "2023-09-15T11:00:00Z",
         Content: "Exploring new places is always fun.",
       },
       {
         Title: "Road Trip",
-        Date: "Yesterday, 14:00",
+        Date: "2023-09-14T14:00:00Z",
         Content: "Visited some amazing spots along the way.",
       },
     ],
+    favorites: [2, 3], // Added favorites
   },
   // NATURE BLOG
   {
@@ -36,18 +41,20 @@ export default [
     email: "alice.johnson@example.com",
     password: "alice7890",
     age: 32,
+    createdAt: "2023-09-08T16:45:00Z", // Added createdAt
     Posts: [
       {
         Title: "A Walk in the Forest",
-        Date: "2 days ago",
+        Date: "2023-09-13T00:00:00Z",
         Content: "It was so relaxing to walk among the trees.",
       },
       {
         Title: "Mountain Views",
-        Date: "1 week ago",
+        Date: "2023-09-08T00:00:00Z",
         Content: "Breathtaking views from the top.",
       },
     ],
+    favorites: [1, 4], // Added favorites
   },
   // FASHION BLOG
   {
@@ -61,18 +68,20 @@ export default [
     email: "sally.robinson@example.com",
     password: "sally7890",
     age: 27,
+    createdAt: "2023-09-14T18:30:00Z", // Added createdAt
     Posts: [
       {
         Title: "New Trends",
-        Date: "Yesterday",
+        Date: "2023-09-14T00:00:00Z",
         Content: "Exploring the latest fashion trends.",
       },
       {
         Title: "Style Tips",
-        Date: "2 days ago",
+        Date: "2023-09-13T00:00:00Z",
         Content: "Mix and match to find your personal style.",
       },
     ],
+    favorites: [2, 5], // Added favorites
   },
   // ADVENTURE BLOG
   {
@@ -86,13 +95,15 @@ export default [
     email: "katherine.johns@example.com",
     password: "katherine5678",
     age: 28,
+    createdAt: "2023-09-10T12:15:00Z", // Added createdAt
     Posts: [
       {
         Title: "Lost in the Woods",
-        Date: "3 days ago",
+        Date: "2023-09-12T00:00:00Z",
         Content: "A thrilling but scary experience.",
       },
     ],
+    favorites: [1, 3], // Added favorites
   },
   // NATURE BLOG
   {
@@ -106,13 +117,15 @@ export default [
     email: "bob.brown@example.com",
     password: "bob4567",
     age: 40,
+    createdAt: "2023-09-01T10:30:00Z", // Added createdAt
     Posts: [
       {
         Title: "Beach Day",
-        Date: "3 days ago",
+        Date: "2023-09-12T00:00:00Z",
         Content: "Relaxed by the shore, enjoyed the sunset.",
       },
     ],
+    favorites: [2, 4], // Added favorites
   },
   // ADVENTURE BLOG
   {
@@ -126,13 +139,15 @@ export default [
     email: "john.doe@example.com",
     password: "john1234",
     age: 31,
+    createdAt: "2023-08-15T14:00:00Z", // Added createdAt
     Posts: [
       {
         Title: "Exploring Europe",
-        Date: "1 month ago",
+        Date: "2023-08-15T00:00:00Z",
         Content: "Visited several countries in Europe.",
       },
     ],
+    favorites: [1, 5], // Added favorites
   },
   // NATURE BLOG
   {
@@ -146,13 +161,15 @@ export default [
     email: "emily.clark@example.com",
     password: "emily5678",
     age: 26,
+    createdAt: "2023-08-22T10:00:00Z", // Added createdAt
     Posts: [
       {
         Title: "Cultural Fest",
-        Date: "3 weeks ago",
+        Date: "2023-08-22T00:00:00Z",
         Content: "Participated in a local cultural festival.",
       },
     ],
+    favorites: [2, 6], // Added favorites
   },
   // FASHION BLOG
   {
@@ -166,13 +183,15 @@ export default [
     email: "michael.scott@example.com",
     password: "michael7890",
     age: 38,
+    createdAt: "2023-07-15T08:00:00Z", // Added createdAt
     Posts: [
       {
         Title: "Friends Reunion",
-        Date: "2 months ago",
+        Date: "2023-07-15T00:00:00Z",
         Content: "Reunited with old friends.",
       },
     ],
+    favorites: [3, 7], // Added favorites
   },
   // ADVENTURE BLOG
   {
@@ -186,13 +205,15 @@ export default [
     email: "laura.wilson@example.com",
     password: "laura1234",
     age: 29,
+    createdAt: "2023-09-08T12:00:00Z", // Added createdAt
     Posts: [
       {
         Title: "Healthy Living",
-        Date: "1 week ago",
+        Date: "2023-09-08T00:00:00Z",
         Content: "Tips for a healthy lifestyle.",
       },
     ],
+    favorites: [1, 8], // Added favorites
   },
   // NATURE BLOG
   {
@@ -206,13 +227,15 @@ export default [
     email: "david.miller@example.com",
     password: "david5678",
     age: 33,
+    createdAt: "2023-09-13T15:00:00Z", // Added createdAt
     Posts: [
       {
         Title: "Latest Gadgets",
-        Date: "2 days ago",
+        Date: "2023-09-13T00:00:00Z",
         Content: "Reviewed the latest tech gadgets.",
       },
     ],
+    favorites: [2, 9], // Added favorites
   },
   // FASHION BLOG
   {
@@ -226,13 +249,15 @@ export default [
     email: "sophia.davis@example.com",
     password: "sophia7890",
     age: 27,
+    createdAt: "2023-09-12T11:00:00Z", // Added createdAt
     Posts: [
       {
         Title: "Delicious Recipes",
-        Date: "3 days ago",
+        Date: "2023-09-12T00:00:00Z",
         Content: "Shared some delicious recipes.",
       },
     ],
+    favorites: [3, 10], // Added favorites
   },
   // ADVENTURE BLOG
   {
@@ -246,13 +271,15 @@ export default [
     email: "james.brown@example.com",
     password: "james1234",
     age: 36,
+    createdAt: "2023-09-10T09:00:00Z", // Added createdAt
     Posts: [
       {
         Title: "Investment Tips",
-        Date: "5 days ago",
+        Date: "2023-09-10T00:00:00Z",
         Content: "Shared some valuable investment tips.",
       },
     ],
+    favorites: [1, 11], // Added favorites
   },
   // NATURE BLOG
   {
@@ -266,13 +293,15 @@ export default [
     email: "karen.lee@example.com",
     password: "karen7890",
     age: 30,
+    createdAt: "2023-01-15T09:30:00Z", // Added createdAt
     Posts: [
       {
         Title: "Yoga for Beginners",
-        Date: "7 months ago",
+        Date: "2023-01-15T00:00:00Z",
         Content: "Easy yoga poses to get started.",
       },
     ],
+    favorites: [2, 12], // Added favorites
   },
   // FASHION BLOG
   {
@@ -286,18 +315,20 @@ export default [
     email: "jane.smith@example.com",
     password: "jane1234",
     age: 34,
+    createdAt: "2023-09-11T11:00:00Z", // Added createdAt
     Posts: [
       {
         Title: "Running Tips",
-        Date: "Yesterday",
+        Date: "2023-09-14T00:00:00Z",
         Content: "Stay hydrated and pace yourself.",
       },
       {
         Title: "Game Night",
-        Date: "4 days ago",
+        Date: "2023-09-11T00:00:00Z",
         Content: "An exciting game with friends.",
       },
     ],
+    favorites: [3, 13], // Added favorites
   },
   // ADVENTURE BLOG
   {
@@ -311,12 +342,14 @@ export default [
     email: "stevie@example.com",
     password: "stevie4567",
     age: 29,
+    createdAt: "2023-09-13T09:05:00Z", // Added createdAt
     Posts: [
       {
         Title: "Future of Technology",
-        Date: "1 day ago",
+        Date: "2023-09-14T00:00:00Z",
         Content: "The next big thing is here.",
       },
     ],
+    favorites: [1, 14], // Added favorites
   },
 ];

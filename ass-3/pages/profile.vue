@@ -2,11 +2,15 @@
 import { ref, computed, onMounted, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuth } from '~/composables/useAuth';
+import { useStatistics } from '~/composables/useStatistics'; // Import the composable
 import peopleData from '@/assets/people.js';
 
 const { user, fetchUser, logout, removeFavorite, addFavorite } = useAuth();
-const router = useRouter();
+const { statistics, calculateStatistics } = useStatistics(); // Destructure the functions
 
+const router = useRouter();
+const startDate = ref('');
+const endDate = ref('');
 const name = ref('');
 const email = ref('');
 const age = ref('');
@@ -119,7 +123,14 @@ const isFollowersDropdownOpen = ref(false);
 const toggleFollowersDropdown = () => {
   isFollowersDropdownOpen.value = !isFollowersDropdownOpen.value;
 };
+const { getFriends } = useAuth();
 
+const friends = computed(() => getFriends());
+const fetchStatistics = () => {
+  if (startDate.value && endDate.value) {
+    calculateStatistics(startDate.value, endDate.value);
+  }
+};
 </script>
 
 
@@ -149,6 +160,35 @@ const toggleFollowersDropdown = () => {
 
     <button @click="handleLogout" class="btn btn-secondary">Logout</button>
     <button @click="goBack" class="btn btn-back">Back to Main Page</button>
+    <div v-if="user" class="statistics-section card">
+      <h3>Statistics</h3>
+      <form @submit.prevent="fetchStatistics">
+        <label>
+          Start Date:
+          <input type="date" v-model="startDate" required />
+        </label>
+        <label>
+          End Date:
+          <input type="date" v-model="endDate" required />
+        </label>
+        <button type="submit" class="btn btn-primary">Get Statistics</button>
+      </form>
+
+      <div v-if="statistics.newUsers !== 0 || statistics.newPosts !== 0">
+        <p>New Users: {{ statistics.newUsers }}</p>
+        <p>New Posts: {{ statistics.newPosts }}</p>
+      </div>
+    </div>
+
+    <h3>Your Friends</h3>
+    <ul v-if="friends.length" class="friends-list">
+      <li v-for="friend in friends" :key="friend.id" class="friend-item card">
+        <p><strong>{{ friend.PersonName }}</strong></p>
+        <img :src="`/avatars/${friend.Avatar || 'default-avatar.png'}`" alt="avatar" class="avatar" />
+        <p>Email: {{ friend.email }}</p>
+      </li>
+    </ul>
+    <p v-else>You have no friends yet.</p>
 
     <h3>Your Posts</h3>
     <ul class="posts-list">
@@ -172,20 +212,21 @@ const toggleFollowersDropdown = () => {
         <p>Email: {{ follower.email }}</p>
       </li>
     </ul>
-    <p v-else-if="isFollowersDropdownOpen"><h1>No followers yet.</h1></p>
+    <p v-else-if="isFollowersDropdownOpen">
+    <h1>No followers yet.</h1>
+    </p>
 
 
     <h3>Follow Other Users</h3>
-<ul class="favorites-list">
-  <li v-for="person in peopleData" :key="person.id" class="favorite-item card">
-    {{ person.PersonName }}
-    <button 
-      @click="toggleFollowUser(person.id)" 
-      :class="isFollowing(person.id).value ? 'btn-unfollow' : 'btn-follow'">
-      {{ isFollowing(person.id).value ? 'Unfollow' : 'Follow' }}
-    </button>
-  </li>
-</ul>
+    <ul class="favorites-list">
+      <li v-for="person in peopleData" :key="person.id" class="favorite-item card">
+        {{ person.PersonName }}
+        <button @click="toggleFollowUser(person.id)"
+          :class="isFollowing(person.id).value ? 'btn-unfollow' : 'btn-follow'">
+          {{ isFollowing(person.id).value ? 'Unfollow' : 'Follow' }}
+        </button>
+      </li>
+    </ul>
 
 
   </div>
@@ -290,7 +331,8 @@ h3 {
 }
 
 .btn-follow {
-  background-color: #28a745; /* Green */
+  background-color: #28a745;
+  /* Green */
   color: white;
   border: none;
   border-radius: 8px;
@@ -304,7 +346,8 @@ h3 {
 }
 
 .btn-unfollow {
-  background-color: #dc3545; /* Red */
+  background-color: #dc3545;
+  /* Red */
   color: white;
   border: none;
   border-radius: 8px;

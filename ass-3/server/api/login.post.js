@@ -2,20 +2,25 @@ import peopleData from '@/assets/people.js';
 
 export default defineEventHandler(async (event) => {
   const { email, password } = await readBody(event);
-  
-  console.log('Login attempt:', { email, password });
 
   const user = peopleData.find(
-    (u) => u.email.trim().toLowerCase() === email.trim().toLowerCase() &&
-           u.password === password
+    (u) =>
+      u.email.trim().toLowerCase() === email.trim().toLowerCase() &&
+      u.password === password
   );
 
   if (!user) {
     throw createError({ statusCode: 401, statusMessage: 'Invalid credentials' });
   }
 
-  setCookie(event, 'auth_token', user.id, { httpOnly: true });
-  console.log('User authenticated:', user);
+  // Set the auth_token cookie
+  setCookie(event, 'auth_token', user.id.toString(), {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict',
+    path: '/',
+    maxAge: 60 * 60 * 24 * 7, // 7 days
+  });
 
   return {
     user: {
@@ -23,12 +28,6 @@ export default defineEventHandler(async (event) => {
       name: user.PersonName,
       email: user.email,
       age: user.age,
-      avatar: user.Avatar,
-      rating: user.Rating,
-      commentary: user.Commentary,
-      topic: user.Topic,
-      favorites: [],
-      posts: user.Posts,
     },
   };
 });

@@ -1,16 +1,21 @@
 <script setup>
 import { computed } from 'vue';
 import { useAuth } from '~/composables/useAuth';
+import { useRouter } from 'vue-router';
 
 const props = defineProps({
   comment: { type: Object, required: true },
 });
 const emit = defineEmits(['likeClicked']);
 
-const { user} = useAuth();
+const { user } = useAuth();
+const router = useRouter();
 
-const isFavorite = computed(() => 
-  user.value?.favorites?.includes(props.comment.id) || false
+// Check if the user is authenticated before accessing their data
+const isAuthenticated = computed(() => user.value !== null);
+
+const isFavorite = computed(() =>
+  isAuthenticated.value && user.value.favorites.includes(props.comment.id)
 );
 
 const fullStars = computed(() => Math.floor(props.comment.Rating));
@@ -20,6 +25,19 @@ const emptyStars = computed(() => 5 - fullStars.value - (hasHalfStar.value ? 1 :
 const avatarSrc = computed(() => `/avatars/${props.comment.Avatar}`);
 
 const likeComment = () => emit('likeClicked', props.comment);
+
+const navigateToChat = () => {
+  if (isAuthenticated.value) {
+    router.push({
+      path: `/chat/${user.value.id}/${props.comment.id}`,
+      query: {
+        otherUserName: props.comment.PersonName,
+      },
+    });
+  } else {
+    router.push('/login'); // Redirect to login if not authenticated
+  }
+};
 </script>
 
 <template>
@@ -30,33 +48,23 @@ const likeComment = () => emit('likeClicked', props.comment);
         <h4>
           <nuxt-link :to="`/user/${comment.id}`">{{ comment.PersonName }}</nuxt-link>
         </h4>
+        <button v-if="isAuthenticated" @click="navigateToChat">Chat</button>
+        <p v-else>Please log in to start a chat.</p>
         <p>{{ comment.PubDate }}</p>
         <div class="rating">
-          <img 
-            v-for="star in fullStars" 
-            :key="'full-' + star" 
-            src="/star.png" 
-            alt="star" 
-            class="star" 
-          />
+          <img v-for="star in fullStars" :key="'full-' + star" src="/star.png" alt="star" class="star" />
           <div v-if="hasHalfStar" class="half-star-wrapper">
             <img src="/star.png" alt="half-star" class="half-star" />
           </div>
-          <img 
-            v-for="star in emptyStars" 
-            :key="'empty-' + star" 
-            src="/empty-star.png" 
-            alt="empty-star" 
-            class="star" 
-          />
+          <img v-for="star in emptyStars" :key="'empty-' + star" src="/empty-star.png" alt="empty-star" class="star" />
         </div>
       </div>
     </div>
     <p class="comment-text">{{ comment.Commentary }}</p>
-    <button class="like-button" @click="likeComment">LIKE</button>
+    <button v-if="isAuthenticated" class="like-button" @click="likeComment">LIKE</button>
+    <p v-else>Log in to like this comment.</p>
   </div>
 </template>
-
 
 <style scoped>
 .comment-card {
