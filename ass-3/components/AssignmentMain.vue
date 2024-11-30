@@ -112,7 +112,8 @@ const sortComments = () => {
 
 .main-container {
   margin-top: 50px;
-  width: 1000px;
+  width: 100%;
+  max-width: 1000px;
   padding: 20px;
   background: #e3f2fd;
   border-radius: 15px;
@@ -194,9 +195,153 @@ const sortComments = () => {
 }
 
 .comments-section {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 20px;
   width: 100%;
 }
-</style>
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .main-container {
+    width: 90%;
+  }
+
+  .date-display,
+  .selected-topic {
+    font-size: 20px;
+    padding: 8px 16px;
+  }
+
+  .filter select {
+    padding: 6px;
+  }
+
+  .arrow-button {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .date-display,
+  .selected-topic {
+    font-size: 18px;
+    padding: 6px 12px;
+  }
+
+  .filter select {
+    padding: 5px;
+  }
+
+  .arrow-button {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .date-display,
+  .selected-topic {
+    font-size: 16px;
+    padding: 5px 10px;
+  }
+
+  .filter select {
+    padding: 4px;
+  }
+
+  .arrow-button {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 430px) {
+  .main-container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .date-display,
+  .selected-topic {
+    font-size: 14px;
+    padding: 4px 8px;
+  }
+
+  .filter select {
+    padding: 3px;
+  }
+
+  .arrow-button {
+    font-size: 12px;
+  }
+
+  .comments-section {
+    gap: 10px;
+  }
+}
+</style>  .arrow-button {
+    font-size: 14px;
+  }
+
+  .comments-section {
+    gap: 10px;
+  }
+
+  /* Stack cards with more compact layout */
+  .comment-card {
+    flex: 1 1 100%;
+    padding: 10px;
+  }
+
+  /* Adjust pagination button spacing */
+  .pagination {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* For Extremely Small Phones (Portrait - 360px width) */
+@media (max-width: 360px) {
+  .main-container {
+    width: 100%;
+    padding: 8px;
+  }
+
+  .date-display,
+  .selected-topic {
+    font-size: 14px;
+    padding: 4px 8px;
+  }
+
+  .filter select {
+    padding: 3px;
+  }
+
+  .arrow-button {
+    font-size: 12px;
+  }
+
+  .comments-section {
+    gap: 8px;
+  }
+
+  .comment-card {
+    flex: 1 1 100%;
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .pagination {
+    font-size: 12px;
+  }
+}
+

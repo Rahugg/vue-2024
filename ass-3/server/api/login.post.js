@@ -33,6 +33,7 @@ export default defineEventHandler(async (event) => {
       topic: user.Topic,
       commentary: user.Commentary,
       pubDate: user.PubDate,
+      avatar: user.Avatar,
     },
   };
 });

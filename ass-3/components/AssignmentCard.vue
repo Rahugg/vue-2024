@@ -68,7 +68,8 @@ const navigateToChat = () => {
 
 <style scoped>
 .comment-card {
-  width: 350px;
+  width: 100%;
+  max-width: 350px;
   padding: 20px;
   background: #5bb9cd;
   border-radius: 15px;
@@ -170,5 +171,106 @@ p {
 
 .save-button:hover {
   background-color: #ff9900;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .comment-card {
+    max-width: 300px;
+  }
+
+  .avatar {
+    width: 45px;
+    height: 45px;
+  }
+
+  .star,
+  .half-star-wrapper,
+  .half-star {
+    width: 18px;
+    height: 18px;
+  }
+
+  .like-button,
+  .save-button {
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .comment-card {
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .star,
+  .half-star-wrapper,
+  .half-star {
+    width: 16px;
+    height: 16px;
+  }
+
+  .like-button,
+  .save-button {
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .comment-card {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .avatar {
+    width: 35px;
+    height: 35px;
+  }
+
+  .star,
+  .half-star-wrapper,
+  .half-star {
+    width: 14px;
+    height: 14px;
+  }
+
+  .like-button,
+  .save-button {
+    padding: 5px 10px;
+  }
+}
+
+/* Vertical Phones (max-width: 415px and 430px) */
+@media (max-width: 430px) {
+  .comment-card {
+    max-width: 100%;
+    padding: 8px;
+  }
+
+  .avatar {
+    width: 30px;
+    height: 30px;
+  }
+
+  .star,
+  .half-star-wrapper,
+  .half-star {
+    width: 12px;
+    height: 12px;
+  }
+
+  .like-button,
+  .save-button {
+    padding: 4px 8px;
+  }
+
+  .comment-text {
+    font-size: 14px;
+  }
 }
 </style>

@@ -177,4 +177,73 @@ onBeforeUnmount(() => {
 .btn-back:hover {
   background: #0056b3;
 }
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .chat-window {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .chat-header {
+    font-size: 18px;
+  }
+
+  .chat-input input,
+  .chat-input button,
+  .btn-back {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .chat-window {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .chat-header {
+    font-size: 16px;
+  }
+
+  .chat-input input,
+  .chat-input button,
+  .btn-back {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chat-window {
+    max-width: 100%;
+    padding: 5px;
+  }
+
+  .chat-header {
+    font-size: 14px;
+  }
+
+  .chat-input input,
+  .chat-input button,
+  .btn-back {
+    padding: 6px;
+  }
+}
+
+@media (max-width: 415px) {
+  .chat-window {
+    max-width: 100%;
+    padding: 5px;
+  }
+
+  .chat-header {
+    font-size: 14px;
+  }
+
+  .chat-input input,
+  .chat-input button,
+  .btn-back {
+    padding: 5px;
+  }
+}
 </style>

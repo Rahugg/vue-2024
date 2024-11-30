@@ -147,4 +147,74 @@ h2 {
 .btn-back:hover {
   background: #0056b3;
 }
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .statistics-page {
+    width: 90%;
+    padding: 25px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  .datepicker-input {
+    padding: 8px;
+  }
+
+  .btn {
+    padding: 8px 16px;
+  }
+
+  .statistics-chart {
+    margin: 15px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .statistics-page {
+    width: 100%;
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .datepicker-input {
+    padding: 6px;
+  }
+
+  .btn {
+    padding: 6px 12px;
+  }
+
+  .statistics-chart {
+    margin: 10px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .statistics-page {
+    width: 100%;
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  .datepicker-input {
+    padding: 5px;
+  }
+
+  .btn {
+    padding: 5px 10px;
+  }
+
+  .statistics-chart {
+    margin: 5px 0;
+  }
+}
 </style>

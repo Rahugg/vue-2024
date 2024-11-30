@@ -329,4 +329,88 @@ h2 {
 .btn-back:hover {
   background-color: #0056b3;
 }
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .friends-page {
+    width: 90%;
+  }
+
+  .avatar {
+    width: 45px;
+    height: 45px;
+  }
+
+  .friend-item {
+    padding: 12px;
+  }
+
+  .btn-follow,
+  .btn-unfollow,
+  .btn-chat,
+  .btn-rename,
+  .btn-save {
+    padding: 8px 16px;
+  }
+
+  .btn-back {
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .friends-page {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .friend-item {
+    padding: 10px;
+  }
+
+  .btn-follow,
+  .btn-unfollow,
+  .btn-chat,
+  .btn-rename,
+  .btn-save {
+    padding: 6px 12px;
+  }
+
+  .btn-back {
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .friends-page {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .avatar {
+    width: 35px;
+    height: 35px;
+  }
+
+  .friend-item {
+    padding: 8px;
+  }
+
+  .btn-follow,
+  .btn-unfollow,
+  .btn-chat,
+  .btn-rename,
+  .btn-save {
+    padding: 5px 10px;
+  }
+
+  .btn-back {
+    padding: 5px 10px;
+  }
+}
 </style>

@@ -44,7 +44,6 @@ const toggleFavorite = async () => {
 const goBackToMainMenu = () => router.push('/');
 </script>
 
-
 <template>
   <div v-if="userProfile" class="user-profile-page">
     <div class="profile-header">
@@ -196,5 +195,122 @@ const goBackToMainMenu = () => router.push('/');
 
 .back-button:hover {
   background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .user-profile-page {
+    width: 90%;
+  }
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .profile-info h2 {
+    font-size: 20px;
+  }
+
+  .profile-info p {
+    font-size: 14px;
+  }
+
+  .star-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .follow-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .post-card {
+    padding: 12px;
+  }
+
+  .back-button {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .user-profile-page {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .avatar {
+    width: 70px;
+    height: 70px;
+  }
+
+  .profile-info h2 {
+    font-size: 18px;
+  }
+
+  .profile-info p {
+    font-size: 12px;
+  }
+
+  .star-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .follow-button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .post-card {
+    padding: 10px;
+  }
+
+  .back-button {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-profile-page {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .avatar {
+    width: 60px;
+    height: 60px;
+  }
+
+  .profile-info h2 {
+    font-size: 16px;
+  }
+
+  .profile-info p {
+    font-size: 10px;
+  }
+
+  .star-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .follow-button {
+    padding: 5px 10px;
+    font-size: 10px;
+  }
+
+  .post-card {
+    padding: 8px;
+  }
+
+  .back-button {
+    padding: 6px 12px;
+    font-size: 10px;
+  }
 }
 </style>

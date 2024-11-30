@@ -42,6 +42,7 @@ const handleLogin = async () => {
   align-items: center;
   height: 100vh;
   background: #e3f2fd;
+  padding: 20px;
 }
 
 .login-container {
@@ -108,5 +109,81 @@ nuxt-link {
 
 nuxt-link:hover {
   text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .login-container {
+    max-width: 90%;
+    padding: 25px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  input {
+    padding: 0.7rem;
+    font-size: 0.95rem;
+  }
+
+  .login-button {
+    padding: 0.7rem;
+    font-size: 0.95rem;
+  }
+
+  .register-text {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  input {
+    padding: 0.65rem;
+    font-size: 0.9rem;
+  }
+
+  .login-button {
+    padding: 0.65rem;
+    font-size: 0.9rem;
+  }
+
+  .register-text {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  input {
+    padding: 0.6rem;
+    font-size: 0.85rem;
+  }
+
+  .login-button {
+    padding: 0.6rem;
+    font-size: 0.85rem;
+  }
+
+  .register-text {
+    font-size: 11px;
+  }
 }
 </style>

@@ -107,4 +107,80 @@ nuxt-link {
 nuxt-link:hover {
   text-decoration: underline;
 }
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .register-form {
+    max-width: 90%;
+    padding: 25px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  input {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .btn-primary {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .login-prompt {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .register-form {
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  input {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .btn-primary {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .login-prompt {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-form {
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  input {
+    padding: 6px;
+    font-size: 10px;
+  }
+
+  .btn-primary {
+    padding: 6px;
+    font-size: 10px;
+  }
+
+  .login-prompt {
+    font-size: 11px;
+  }
+}
 </style>

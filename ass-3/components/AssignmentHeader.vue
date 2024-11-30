@@ -133,4 +133,98 @@ const selectTopic = (topic) => {
   background: rgba(0, 0, 0, 0.5);
   z-index: 500;
 }
+
+/* ---------------------- Responsive Design ---------------------- */
+
+/* Large tablets and larger phones (up to 1200px) */
+@media (max-width: 1200px) {
+  .header {
+    padding: 0 15px;
+    height: 70px;
+  }
+
+  #header-burger-btn img,
+  #header-profile-btn img {
+    width: 45px;
+    height: 45px;
+  }
+
+  .sidebar {
+    width: 250px;
+  }
+
+  .menu-item {
+    font-size: 16px;
+    padding: 12px;
+  }
+}
+
+/* Tablets (portrait mode) and small tablets (up to 768px) */
+@media (max-width: 768px) {
+  .header {
+    padding: 0 10px;
+    height: 60px;
+  }
+
+  #header-burger-btn img,
+  #header-profile-btn img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .sidebar {
+    width: 200px;
+  }
+
+  .menu-item {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+/* Small phones and smaller tablets (up to 480px) */
+@media (max-width: 480px) {
+  .header {
+    padding: 0 5px;
+    height: 50px;
+  }
+
+  #header-burger-btn img,
+  #header-profile-btn img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .sidebar {
+    width: 150px;
+  }
+
+  .menu-item {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
+
+/* Very small phones and vertical phones (max-width: 415px) */
+@media (max-width: 415px) {
+  .header {
+    padding: 0 5px;
+    height: 50px;
+  }
+
+  #header-burger-btn img,
+  #header-profile-btn img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .sidebar {
+    width: 150px;
+  }
+
+  .menu-item {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
 </style>
