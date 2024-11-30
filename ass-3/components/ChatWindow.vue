@@ -62,8 +62,8 @@ const formatTimestamp = (timestamp) => {
   }
 };
 
-const goBackToMenu = () => {
-  router.push('/');
+const goBackToFriends = () => {
+  router.push('/friends');
 };
 
 onMounted(() => {
@@ -93,6 +93,7 @@ onBeforeUnmount(() => {
       <input v-model="newMessage" @keyup.enter="sendMessage" placeholder="Type a message..." />
       <button @click="sendMessage">Send</button>
     </div>
+    <button class="btn-back" @click="goBackToFriends">Go Back to Friends Page</button>
   </div>
 </template>
 
@@ -170,15 +171,17 @@ onBeforeUnmount(() => {
 }
 
 .btn-back {
-  background: #ffc107;
+  margin-top: 10px;
+  padding: 8px;
+  background: #007bff;
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 5px 10px;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 .btn-back:hover {
-  background: #e0a800;
+  background: #0056b3;
 }
 </style>
