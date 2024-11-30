@@ -68,14 +68,14 @@ const navigateToChat = () => {
 
 <style scoped>
 .comment-card {
-  width: 100%;
-  max-width: 350px;
+  max-width: 330px;
   padding: 20px;
-  background: #5bb9cd;
+  background: linear-gradient(135deg, #5bb9cd, #4fbfcb);
   border-radius: 15px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid #ddd;
 }
 
 .comment-card:hover {
@@ -94,6 +94,7 @@ const navigateToChat = () => {
   height: 50px;
   border-radius: 50%;
   margin-right: 10px;
+  border: 2px solid #fff;
 }
 
 .comment-details {
@@ -103,11 +104,12 @@ const navigateToChat = () => {
 h4 {
   margin: 0;
   font-size: 18px;
+  color: #fff;
 }
 
 p {
   margin: 5px 0;
-  color: #555;
+  color: #eee;
 }
 
 .rating {
@@ -145,7 +147,7 @@ p {
 .comment-text {
   margin-bottom: 20px;
   font-size: 16px;
-  color: #333;
+  color: #fff;
 }
 
 .like-button,
@@ -245,11 +247,12 @@ p {
   }
 }
 
-/* Vertical Phones (max-width: 415px and 430px) */
+/* Vertical Phones (max-width: 430px) */
 @media (max-width: 430px) {
   .comment-card {
     max-width: 100%;
     padding: 8px;
+    border-radius: 10px;
   }
 
   .avatar {

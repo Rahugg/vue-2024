@@ -195,8 +195,8 @@ const sortComments = () => {
 }
 
 .comments-section {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   width: 100%;
 }
@@ -220,6 +220,10 @@ const sortComments = () => {
   .arrow-button {
     font-size: 18px;
   }
+
+  .comments-section {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
@@ -241,6 +245,11 @@ const sortComments = () => {
   .arrow-button {
     font-size: 16px;
   }
+
+  .comments-section {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -261,6 +270,11 @@ const sortComments = () => {
 
   .arrow-button {
     font-size: 14px;
+  }
+
+  .comments-section {
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
 }
 
@@ -285,63 +299,9 @@ const sortComments = () => {
   }
 
   .comments-section {
-    gap: 10px;
-  }
-}
-</style>  .arrow-button {
-    font-size: 14px;
-  }
-
-  .comments-section {
-    gap: 10px;
-  }
-
-  /* Stack cards with more compact layout */
-  .comment-card {
-    flex: 1 1 100%;
-    padding: 10px;
-  }
-
-  /* Adjust pagination button spacing */
-  .pagination {
+    display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 10px;
   }
 }
-
-/* For Extremely Small Phones (Portrait - 360px width) */
-@media (max-width: 360px) {
-  .main-container {
-    width: 100%;
-    padding: 8px;
-  }
-
-  .date-display,
-  .selected-topic {
-    font-size: 14px;
-    padding: 4px 8px;
-  }
-
-  .filter select {
-    padding: 3px;
-  }
-
-  .arrow-button {
-    font-size: 12px;
-  }
-
-  .comments-section {
-    gap: 8px;
-  }
-
-  .comment-card {
-    flex: 1 1 100%;
-    padding: 8px;
-    font-size: 14px;
-  }
-
-  .pagination {
-    font-size: 12px;
-  }
-}
-
+</style>
