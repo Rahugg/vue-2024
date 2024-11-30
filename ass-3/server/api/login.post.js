@@ -1,4 +1,5 @@
 import peopleData from '@/assets/people.js';
+import { Comment } from 'vue';
 
 export default defineEventHandler(async (event) => {
   const { email, password } = await readBody(event);
@@ -28,6 +29,10 @@ export default defineEventHandler(async (event) => {
       name: user.PersonName,
       email: user.email,
       age: user.age,
+      rating: user.Rating,
+      topic: user.Topic,
+      commentary: user.Commentary,
+      pubDate: user.PubDate,
     },
   };
 });

@@ -2,15 +2,12 @@
 import { ref, computed, onMounted, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuth } from '~/composables/useAuth';
-import { useStatistics } from '~/composables/useStatistics'; // Import the composable
-import peopleData from '@/assets/people.js';
+import { usePosts } from '~/composables/usePosts';
 
 const { user, fetchUser, logout, removeFavorite, addFavorite } = useAuth();
-const { statistics, calculateStatistics } = useStatistics(); // Destructure the functions
+const { posts, fetchPosts, createPost, updatePost, deletePost } = usePosts();
 
 const router = useRouter();
-const startDate = ref('');
-const endDate = ref('');
 const name = ref('');
 const email = ref('');
 const age = ref('');
@@ -24,13 +21,19 @@ const modalMessage = ref('');
 const modalType = ref('');
 const showModal = ref(false);
 
+const newPostTitle = ref('');
+const newPostContent = ref('');
+const editingPostId = ref(null);
+const editingPostTitle = ref('');
+const editingPostContent = ref('');
+
 const openModal = (message, type) => {
   modalMessage.value = message;
   modalType.value = type;
   showModal.value = true;
 
   setTimeout(() => {
-    showModal.value = false; // Hide modal after 3 seconds
+    showModal.value = false;
   }, 3000);
 };
 
@@ -42,8 +45,8 @@ onMounted(async () => {
       router.push('/login');
     }
   }
+  await fetchPosts();
 });
-
 
 watchEffect(() => {
   if (user.value) {
@@ -60,26 +63,34 @@ watchEffect(() => {
 
 const updateProfile = async () => {
   try {
-    const response = await $fetch('/api/user', {
+    const response = await fetch('/api/user', {
       method: 'PUT',
-      body: {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
         name: name.value,
         email: email.value,
         age: age.value,
         avatar: avatar.value,
-      },
+      }),
     });
-    user.value = response.user;
-    alert('Profile updated successfully.');
-    isEditing.value = false; // Exit edit mode
+    const data = await response.json();
+    if (response.ok) {
+      user.value = data.user;
+      alert('Profile updated successfully.');
+      isEditing.value = false;
+    } else {
+      alert(data.error || 'Failed to update profile.');
+    }
   } catch (error) {
     console.error('Profile update failed:', error);
-    alert('Failed to update profile.');
+    alert('An error occurred while updating the profile.');
   }
 };
 
-const handleEdit = () => (isEditing.value = true); // Enter edit mode
-const cancelEdit = () => (isEditing.value = false); // Exit edit mode without saving
+const handleEdit = () => (isEditing.value = true);
+const cancelEdit = () => (isEditing.value = false);
 
 const handleLogout = () => {
   logout();
@@ -104,35 +115,66 @@ const toggleFollowUser = async (personId) => {
     openModal('An error occurred. Please try again.', 'error');
   }
 };
+
 const isFollowing = (personId) =>
   computed(() => user.value?.favorites.includes(personId));
-
 
 const followers = computed(() => {
   if (!user.value || !user.value.favorites) return [];
   return peopleData.filter((person) => user.value.favorites.includes(person.id));
 });
 
-
-const userPosts = computed(() =>
-  peopleData.find((person) => person.id === user.value?.id)?.Posts || []
-);
-
 const isFollowersDropdownOpen = ref(false);
 
 const toggleFollowersDropdown = () => {
-  isFollowersDropdownOpen.value = !isFollowersDropdownOpen.value;
+  isFollowersDropdownOpen.value = !isFollowersDropdown.value;
 };
-const { getFriends } = useAuth();
 
-const friends = computed(() => getFriends());
-const fetchStatistics = () => {
-  if (startDate.value && endDate.value) {
-    calculateStatistics(startDate.value, endDate.value);
+const goToFriendsPage = () => {
+  router.push('/friends'); // Ensure this route matches the path to your friends page
+};
+
+const goToStatisticsPage = () => {
+  router.push('/statistics'); // Ensure this route matches the path to your statistics page
+};
+
+// CRUD operations for posts
+const createNewPost = async () => {
+  if (!newPostTitle.value.trim() || !newPostContent.value.trim()) {
+    alert('Title and content are required.');
+    return;
   }
+
+  await createPost(newPostTitle.value, newPostContent.value);
+  newPostTitle.value = '';
+  newPostContent.value = '';
+  openModal('Post created successfully!', 'success');
+};
+
+const startEditingPost = (post) => {
+  editingPostId.value = post.id;
+  editingPostTitle.value = post.Title;
+  editingPostContent.value = post.Content;
+};
+
+const savePost = async () => {
+  if (!editingPostTitle.value.trim() || !editingPostContent.value.trim()) {
+    alert('Title and content are required.');
+    return;
+  }
+
+  await updatePost(editingPostId.value, editingPostTitle.value, editingPostContent.value);
+  editingPostId.value = null;
+  editingPostTitle.value = '';
+  editingPostContent.value = '';
+  openModal('Post updated successfully!', 'success');
+};
+
+const removePost = async (postId) => {
+  await deletePost(postId);
+  openModal('Post deleted successfully!', 'success');
 };
 </script>
-
 
 <template>
   <div class="profile-page" v-if="user">
@@ -160,87 +202,41 @@ const fetchStatistics = () => {
 
     <button @click="handleLogout" class="btn btn-secondary">Logout</button>
     <button @click="goBack" class="btn btn-back">Back to Main Page</button>
-    <div v-if="user" class="statistics-section card">
-      <h3>Statistics</h3>
-      <form @submit.prevent="fetchStatistics">
-        <label>
-          Start Date:
-          <input type="date" v-model="startDate" required />
-        </label>
-        <label>
-          End Date:
-          <input type="date" v-model="endDate" required />
-        </label>
-        <button type="submit" class="btn btn-primary">Get Statistics</button>
-      </form>
 
-      <div v-if="statistics.newUsers !== 0 || statistics.newPosts !== 0">
-        <p>New Users: {{ statistics.newUsers }}</p>
-        <p>New Posts: {{ statistics.newPosts }}</p>
-      </div>
-    </div>
+    <!-- Add a link to go to the friends page -->
+    <button @click="goToFriendsPage" class="btn btn-primary">View Your Friends</button>
 
-    <h3>Your Friends</h3>
-    <ul v-if="friends.length" class="friends-list">
-      <li v-for="friend in friends" :key="friend.id" class="friend-item card">
-        <p><strong>{{ friend.PersonName }}</strong></p>
-        <img :src="`/avatars/${friend.Avatar || 'default-avatar.png'}`" alt="avatar" class="avatar" />
-        <p>Email: {{ friend.email }}</p>
-      </li>
-    </ul>
-    <p v-else>You have no friends yet.</p>
+    <!-- Add a link to go to the statistics page -->
+    <button @click="goToStatisticsPage" class="btn btn-primary">View Statistics</button>
 
     <h3>Your Posts</h3>
+    <form @submit.prevent="createNewPost" class="post-form card">
+      <input v-model="newPostTitle" type="text" placeholder="Post Title" required />
+      <textarea v-model="newPostContent" placeholder="Post Content" required></textarea>
+      <button type="submit" class="btn btn-primary">Create Post</button>
+    </form>
     <ul class="posts-list">
-      <li v-for="(post, index) in userPosts" :key="index" class="post-item card">
-        <strong>{{ post.Title }}</strong> - {{ post.Date }}
-        <p>{{ post.Content }}</p>
+      <li v-for="(post, index) in posts" :key="index" class="post-item card">
+        <div v-if="editingPostId !== post.id">
+          <strong>{{ post.Title }}</strong> - {{ post.Date }}
+          <p>{{ post.Content }}</p>
+          <button @click="startEditingPost(post)" class="btn btn-edit">Edit</button>
+          <button @click="removePost(post.id)" class="btn btn-delete">Delete</button>
+        </div>
+        <div v-else>
+          <input v-model="editingPostTitle" type="text" placeholder="Post Title" required />
+          <textarea v-model="editingPostContent" placeholder="Post Content" required></textarea>
+          <button @click="savePost" class="btn btn-primary">Save</button>
+          <button @click="() => { editingPostId = null; editingPostTitle = ''; editingPostContent = ''; }" class="btn btn-secondary">Cancel</button>
+        </div>
       </li>
     </ul>
-
-    <h3>
-      Your Followings
-      <button @click="toggleFollowersDropdown" class="btn btn-toggle">
-        {{ isFollowersDropdownOpen ? 'Hide' : 'Show' }}
-      </button>
-    </h3>
-    <ul v-if="isFollowersDropdownOpen && followers.length" class="followers-list">
-      <li v-for="follower in followers" :key="follower.id" class="follower-item card">
-        <p><strong>{{ follower.PersonName }}</strong></p>
-        <img :src="`/avatars/${follower.Avatar || 'default-avatar.png'}`" alt="avatar" class="avatar"
-          @error="handleImageError" />
-        <p>Email: {{ follower.email }}</p>
-      </li>
-    </ul>
-    <p v-else-if="isFollowersDropdownOpen">
-    <h1>No followers yet.</h1>
-    </p>
-
-
-    <h3>Follow Other Users</h3>
-    <ul class="favorites-list">
-      <li v-for="person in peopleData" :key="person.id" class="favorite-item card">
-        {{ person.PersonName }}
-        <button @click="toggleFollowUser(person.id)"
-          :class="isFollowing(person.id).value ? 'btn-unfollow' : 'btn-follow'">
-          {{ isFollowing(person.id).value ? 'Unfollow' : 'Follow' }}
-        </button>
-      </li>
-    </ul>
-
-
-  </div>
-
-  <div v-if="showModal" :class="['modal', modalType]">
-    <p>{{ modalMessage }}</p>
   </div>
 
   <div v-else>
     <p>Loading profile... If this takes too long, please <a @click="handleLogout">log in again</a>.</p>
   </div>
 </template>
-
-
 
 <style scoped>
 .profile-page {
@@ -262,7 +258,8 @@ h3 {
 .profile-info,
 .profile-form,
 .post-item,
-.favorite-item {
+.favorite-item,
+.post-form {
   margin-bottom: 20px;
 }
 
@@ -330,38 +327,17 @@ h3 {
   background: #e0a800;
 }
 
-.btn-follow {
-  background-color: #28a745;
-  /* Green */
+.btn-delete {
+  background: #dc3545;
   color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background 0.3s ease;
 }
 
-.btn-follow:hover {
-  background-color: #218838;
+.btn-delete:hover {
+  background: #c82333;
 }
 
-.btn-unfollow {
-  background-color: #dc3545;
-  /* Red */
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.btn-unfollow:hover {
-  background-color: #c82333;
-}
-
-
-input {
+input,
+textarea {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
@@ -370,7 +346,8 @@ input {
   transition: border-color 0.3s ease;
 }
 
-input:focus {
+input:focus,
+textarea:focus {
   border-color: #007bff;
 }
 

@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { useRouter } from 'vue-router';
 
 const props = defineProps({
   currentUserId: { type: Number, required: true },
@@ -10,6 +11,7 @@ const props = defineProps({
 const messages = ref([]);
 const newMessage = ref('');
 const interval = ref(null);
+const router = useRouter();
 
 const fetchMessages = async () => {
   try {
@@ -60,6 +62,10 @@ const formatTimestamp = (timestamp) => {
   }
 };
 
+const goBackToFriends = () => {
+  router.push('/friends');
+};
+
 onMounted(() => {
   fetchMessages();
   interval.value = setInterval(fetchMessages, 3000); // Poll for new messages every 3 seconds
@@ -83,6 +89,7 @@ onBeforeUnmount(() => {
       <input v-model="newMessage" @keyup.enter="sendMessage" placeholder="Type a message..." />
       <button @click="sendMessage">Send</button>
     </div>
+    <button class="btn-back" @click="goBackToFriends">Go Back to Friends Page</button>
   </div>
 </template>
 
@@ -154,5 +161,20 @@ onBeforeUnmount(() => {
 
 .chat-input button:hover {
   background: #4aa1b3;
+}
+
+.btn-back {
+  margin-top: 10px;
+  padding: 8px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-back:hover {
+  background: #0056b3;
 }
 </style>
