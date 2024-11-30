@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { useRouter } from 'vue-router';
 
 const props = defineProps({
   currentUserId: { type: Number, required: true },
@@ -10,6 +11,7 @@ const props = defineProps({
 const messages = ref([]);
 const newMessage = ref('');
 const interval = ref(null);
+const router = useRouter();
 
 const fetchMessages = async () => {
   try {
@@ -60,6 +62,10 @@ const formatTimestamp = (timestamp) => {
   }
 };
 
+const goBackToMenu = () => {
+  router.push('/');
+};
+
 onMounted(() => {
   fetchMessages();
   interval.value = setInterval(fetchMessages, 3000); // Poll for new messages every 3 seconds
@@ -72,9 +78,13 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="chat-window">
-    <div class="chat-header">{{ otherUserName }}</div>
+    <div class="chat-header">
+      {{ otherUserName }}
+      <button @click="goBackToMenu" class="btn btn-back">Go Back to Menu</button>
+    </div>
     <div class="chat-messages">
-      <div v-for="msg in messages" :key="msg.id" :class="{'my-message': msg.fromUserId === currentUserId, 'their-message': msg.fromUserId !== currentUserId}">
+      <div v-for="msg in messages" :key="msg.id"
+        :class="{ 'my-message': msg.fromUserId === currentUserId, 'their-message': msg.fromUserId !== currentUserId }">
         <div>{{ msg.content }}</div>
         <div class="timestamp">{{ formatTimestamp(msg.timestamp) }}</div>
       </div>
@@ -103,6 +113,9 @@ onBeforeUnmount(() => {
   text-align: center;
   font-weight: bold;
   margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .chat-messages {
@@ -154,5 +167,18 @@ onBeforeUnmount(() => {
 
 .chat-input button:hover {
   background: #4aa1b3;
+}
+
+.btn-back {
+  background: #ffc107;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.btn-back:hover {
+  background: #e0a800;
 }
 </style>

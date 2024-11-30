@@ -44,7 +44,6 @@ onMounted(async () => {
   }
 });
 
-
 watchEffect(() => {
   if (user.value) {
     name.value = user.value.name || '';
@@ -92,7 +91,7 @@ const goBack = () => {
 
 const toggleFollowUser = async (personId) => {
   try {
-    if (user.value.favorites.includes(personId)) {
+    if (user.value?.favorites?.includes(personId)) {
       await removeFavorite(personId);
       openModal('User unfollowed successfully!', 'success');
     } else {
@@ -104,15 +103,14 @@ const toggleFollowUser = async (personId) => {
     openModal('An error occurred. Please try again.', 'error');
   }
 };
-const isFollowing = (personId) =>
-  computed(() => user.value?.favorites.includes(personId));
 
+const isFollowing = (personId) =>
+  computed(() => user.value?.favorites?.includes(personId) || false);
 
 const followers = computed(() => {
   if (!user.value || !user.value.favorites) return [];
   return peopleData.filter((person) => user.value.favorites.includes(person.id));
 });
-
 
 const userPosts = computed(() =>
   peopleData.find((person) => person.id === user.value?.id)?.Posts || []
@@ -126,13 +124,23 @@ const toggleFollowersDropdown = () => {
 const { getFriends } = useAuth();
 
 const friends = computed(() => getFriends());
+
+const removeFriend = async (friendId) => {
+  try {
+    await removeFavorite(friendId);
+    openModal('Friend removed successfully!', 'success');
+  } catch (error) {
+    console.error('Failed to remove friend:', error);
+    openModal('An error occurred. Please try again.', 'error');
+  }
+};
+
 const fetchStatistics = () => {
   if (startDate.value && endDate.value) {
     calculateStatistics(startDate.value, endDate.value);
   }
 };
 </script>
-
 
 <template>
   <div class="profile-page" v-if="user">
@@ -160,9 +168,10 @@ const fetchStatistics = () => {
 
     <button @click="handleLogout" class="btn btn-secondary">Logout</button>
     <button @click="goBack" class="btn btn-back">Back to Main Page</button>
+
     <div v-if="user" class="statistics-section card">
       <h3>Statistics</h3>
-      <form @submit.prevent="fetchStatistics">
+      <form @submit.prevent="fetchStatistics" class="statistics-form">
         <label>
           Start Date:
           <input type="date" v-model="startDate" required />
@@ -174,9 +183,12 @@ const fetchStatistics = () => {
         <button type="submit" class="btn btn-primary">Get Statistics</button>
       </form>
 
-      <div v-if="statistics.newUsers !== 0 || statistics.newPosts !== 0">
-        <p>New Users: {{ statistics.newUsers }}</p>
-        <p>New Posts: {{ statistics.newPosts }}</p>
+      <div v-if="statistics.newUsers !== 0 || statistics.newPosts !== 0" class="statistics-results">
+        <p><strong>New Users:</strong> {{ statistics.newUsers }}</p>
+        <p><strong>New Posts:</strong> {{ statistics.newPosts }}</p>
+      </div>
+      <div v-else class="no-statistics">
+        <p>No statistics available for the selected period.</p>
       </div>
     </div>
 
@@ -186,6 +198,7 @@ const fetchStatistics = () => {
         <p><strong>{{ friend.PersonName }}</strong></p>
         <img :src="`/avatars/${friend.Avatar || 'default-avatar.png'}`" alt="avatar" class="avatar" />
         <p>Email: {{ friend.email }}</p>
+        <button @click="removeFriend(friend.id)" class="btn btn-unfollow">Remove Friend</button>
       </li>
     </ul>
     <p v-else>You have no friends yet.</p>
@@ -216,7 +229,6 @@ const fetchStatistics = () => {
     <h1>No followers yet.</h1>
     </p>
 
-
     <h3>Follow Other Users</h3>
     <ul class="favorites-list">
       <li v-for="person in peopleData" :key="person.id" class="favorite-item card">
@@ -227,8 +239,6 @@ const fetchStatistics = () => {
         </button>
       </li>
     </ul>
-
-
   </div>
 
   <div v-if="showModal" :class="['modal', modalType]">
@@ -239,8 +249,6 @@ const fetchStatistics = () => {
     <p>Loading profile... If this takes too long, please <a @click="handleLogout">log in again</a>.</p>
   </div>
 </template>
-
-
 
 <style scoped>
 .profile-page {
@@ -360,7 +368,6 @@ h3 {
   background-color: #c82333;
 }
 
-
 input {
   width: 100%;
   padding: 10px;
@@ -442,5 +449,46 @@ input:focus {
 
 .btn-toggle:hover {
   background-color: #138496;
+}
+
+/* Statistics section styles */
+.statistics-section {
+  margin-top: 20px;
+}
+
+.statistics-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.statistics-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.statistics-results {
+  margin-top: 20px;
+  padding: 15px;
+  background: #e9ecef;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.statistics-results p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.no-statistics {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f8d7da;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  color: #721c24;
+  text-align: center;
 }
 </style>
