@@ -34,6 +34,7 @@ export default defineEventHandler(async (event) => {
       commentary: user.Commentary,
       pubDate: user.PubDate,
       avatar: user.Avatar,
+      favorites: user.favorites,
     },
   };
 });
